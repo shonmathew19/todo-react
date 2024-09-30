@@ -1,0 +1,64 @@
+body,html{
+    overflow-x: hidden;
+}
+.columnOne{
+    background-color: #FA9884;
+    color: white;
+   
+}
+.columnTwo{
+    background-color:#FFF3E2;
+}
+.row{
+    
+    height: 100vh;
+}
+
+li,.menu-button {
+    list-style: none; 
+    padding: 5px;       
+    margin: 0; 
+    cursor: pointer;    
+    
+}
+
+li:hover{
+    background-color:white;
+    border-radius: 5px;
+    color: black;
+}
+.tag ul li{
+    background-color: #FFE5CA;
+    border-radius: 5px;
+    margin-right: 10px;
+    color: black;
+}
+.menu-button:hover{
+    background-color:white;
+    border-radius: 5px;
+    color: black;
+}
+
+.modal-button:hover {
+    transform: scale(1.2);
+    transition: transform 0.4s; 
+    border: 2px solid rgb(64, 62, 66) !important;
+}
+
+.message{
+    text-align: center;
+    margin-top: 10px;
+    animation: fadeIn 3s infinite alternate ease-in-out;
+}
+@keyframes fadeIn {
+    0% {
+        
+        transform: translateX(-50px);
+        color: red;
+    }
+    100% {
+        
+        transform: translateX(50px);
+        color: #0026ff;
+    }
+}
