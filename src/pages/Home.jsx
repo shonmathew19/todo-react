@@ -58,7 +58,7 @@ const Home = () => {
                     <Col md={9} className="columnTwo pt-4">
                         <h1>Today {new Date().getDate()} <i className="fa-regular fa-calendar-days"></i></h1>
                         <div className="d-flex">
-                            <input type="text" className="w-100 form-control me-5" placeholder="Add new task" />
+                            <input type="text" className="w-100 form-control me-3" placeholder="Add new task" />
                             <button className="btn me-2" style={{ backgroundColor: '#E74646', color: 'white' }}>ADD</button>
                         </div>
                         <p className="message">Click on any to-do task to modify.</p>
