@@ -9,6 +9,7 @@ const Home = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [isHovered, setIsHovered] = useState(false);
 
     const handle = () => {
         alert('hi')
@@ -22,16 +23,26 @@ const Home = () => {
                         <h3>Menu</h3>
                         <input type="text" className="form-control" placeholder="search" />
                         <div className="mt-2">
-                            <span>TASKS</span>
+                            <h6>TASKS</h6>
                             <ul >
-                                <li onClick={handle}><i className="fa-solid fa-forward"></i> Upcoming</li>
-                                <li ><i className="fa-solid fa-bars"></i> Today</li>
-                                <li ><i className="fa-regular fa-calendar-days"></i> Calander</li>
-                                <li ><i className="fa-solid fa-note-sticky"></i> Sticky Wall</li>
+                                <li onClick={handle} style={{
+                                    color: isHovered ? 'rgb(255, 255, 255)' : 'green',fontWeight:'bold',
+                                    backgroundColor: isHovered ? 'green' : 'initial',
+                                }}
+
+                                    onMouseEnter={() => setIsHovered(true)}
+                                    onMouseLeave={() => setIsHovered(false)}
+                                ><i class="fa-solid fa-thumbs-up me-1 "></i>
+                                    Completed
+                                </li>
+                                <li onClick={handle}><i className="fa-solid fa-forward me-1"></i> Upcoming</li>
+                                <li ><i className="fa-solid fa-bars me-1"></i> Today</li>
+                                <li ><i className="fa-regular fa-calendar-days me-1"></i> Calander</li>
+                                <li ><i className="fa-solid fa-note-sticky me-1"></i> Sticky Wall</li>
                             </ul>
                         </div>
                         <div>
-                            <span>LISTS</span>
+                            <h6>LISTS</h6>
                             <ul>
                                 <li>Personal</li>
                                 <li>Work</li>
