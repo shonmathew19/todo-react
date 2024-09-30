@@ -62,12 +62,14 @@ const Home = () => {
                             <button className="btn me-2" style={{ backgroundColor: '#E74646', color: 'white' }}>ADD</button>
                         </div>
                         <p className="message">Click on any to-do task to modify.</p>
+
+                        <h3 className="text-center ">TASKS</h3>
                         <ul className="mt-3 ">
-                            <li onClick={handleShow} >Research content ideas </li>
-                            <li onClick={handleShow}>Create a database</li>
-                            <li onClick={handleShow}>Learn MongoDB</li>
-                            <li onClick={handleShow}>Learn Angular</li>
-                            <li onClick={handleShow}>Learn MERN</li>
+                            <li onClick={handleShow}> <i class="fa-solid fa-check me-2"></i>Research content ideas </li>
+                            <li onClick={handleShow}> <i class="fa-solid fa-check me-2"></i>Create a database</li>
+                            <li onClick={handleShow}> <i class="fa-solid fa-check me-2"></i>Learn MongoDB</li>
+                            <li onClick={handleShow}> <i class="fa-solid fa-check me-2"></i>Learn Angular</li>
+                            <li onClick={handleShow}> <i class="fa-solid fa-check me-2"></i>Learn MERN</li>
                         </ul>
 
                     </Col>
