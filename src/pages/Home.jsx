@@ -18,7 +18,12 @@ const Home = () => {
     return (
         <>
             <Container fluid>
+
                 <Row className="row ">
+                    
+                    <div className="bar">
+
+                    </div>
                     <Col md={3} className="border shadow p-4 columnOne">
                         <h3>Menu</h3>
                         <input type="text" className="form-control" placeholder="search" />
@@ -26,7 +31,7 @@ const Home = () => {
                             <h6>TASKS</h6>
                             <ul >
                                 <li onClick={handle} style={{
-                                    color: isHovered ? 'rgb(255, 255, 255)' : 'green',fontWeight:'bold',
+                                    color: isHovered ? 'rgb(255, 255, 255)' : 'green', fontWeight: 'bold',
                                     backgroundColor: isHovered ? 'green' : 'initial',
                                 }}
 

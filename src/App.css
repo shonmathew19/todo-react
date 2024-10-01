@@ -1,17 +1,41 @@
 body,html{
     overflow-x: hidden;
 }
+.bar{
+    height: 10px;
+    background: linear-gradient(45deg, 
+    rgb(183, 224, 255) 0%, 
+    rgb(255, 245, 205) 25%, 
+    rgb(255, 207, 179) 50%, 
+    rgb(231, 143, 129) 100%);
+    background-size: 400% 400%;
+    animation: gradient-animation 3s ease infinite;
+
+}
+@keyframes gradient-animation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 .columnOne{
     background-color: #FA9884;
     color: white;
-   
+
 }
 .columnTwo{
     background-color:#FFF3E2;
+  
 }
 .row{
     
     height: 100vh;
+ 
 }
 
 li,.menu-button {
