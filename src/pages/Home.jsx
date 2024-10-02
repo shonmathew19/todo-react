@@ -50,7 +50,7 @@ const Home = () => {
                         <div className="mt-2">
                             <h6>TASKS</h6>
                             <ul>
-                                <li><i className="fa-solid fa-thumbs-up me-1"></i> Completed</li>
+                                <li className="text-success"><i className="fa-solid fa-thumbs-up me-1"></i> Completed</li>
                                 <li><i className="fa-solid fa-forward me-1"></i> Upcoming</li>
                                 <li><i className="fa-solid fa-bars me-1"></i> Today</li>
                                 <li><i className="fa-regular fa-calendar-days me-1"></i> Calendar</li>
