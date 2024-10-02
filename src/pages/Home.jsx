@@ -80,9 +80,9 @@ const Home = () => {
                         <p className="message">Click on any to-do task to modify.</p>
 
                         <h3 className="text-center">TASKS</h3>
-                        <ul className="mt-3">
+                        <ul className="mt-3 mb-5">
                             {todos.map(todo => (
-                                <li key={todo.id} onClick={() => handleShow(todo)}>
+                                <li key={todo.id} onClick={() => handleShow(todo)} >
                                     <i className="fa-solid fa-check me-2"></i>{todo.text}
                                 </li>
                             ))}
