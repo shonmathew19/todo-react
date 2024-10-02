@@ -4,13 +4,15 @@ import { Col, Container, Row } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo, deleteTodo } from "../redux/todoSlice";
+import { addTodo, deleteTodo, completedTodo } from "../redux/todoSlice";
 
 const Home = () => {
-    const [show, setShow] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showCompletedModal, setShowCompletedModal] = useState(false);
     const [selectedTodo, setSelectedTodo] = useState(null);
     const [task, setTask] = useState('');
-    const todos = useSelector(state => state.todos);
+    const todos = useSelector(state => state.todos.todos);
+    const completedTodos = useSelector(state => state.todos.completedState);
     const dispatch = useDispatch();
 
     const handleInput = (e) => {
@@ -26,17 +28,33 @@ const Home = () => {
 
     const removeTodo = (id) => {
         dispatch(deleteTodo(id));
-        setShow(false);
+        setShowEditModal(false);
     }
 
-    const handleShow = (todo) => {
+    const handleShowEditModal = (todo) => {
         setSelectedTodo(todo);
-        setShow(true);
+        setShowEditModal(true);
     }
 
-    const handleClose = () => {
-        setShow(false);
+    const handleCloseEditModal = () => {
+        setShowEditModal(false);
         setSelectedTodo(null);
+    }
+
+    const handleMoveItem = () => {
+        if (selectedTodo) {
+            dispatch(completedTodo({ id: selectedTodo.id }));
+            setShowEditModal(false);
+            setSelectedTodo(null);
+        }
+    };
+
+    const handleShowCompletedModal = () => {
+        setShowCompletedModal(true);
+    }
+
+    const handleCloseCompletedModal = () => {
+        setShowCompletedModal(false);
     }
 
     return (
@@ -50,7 +68,7 @@ const Home = () => {
                         <div className="mt-2">
                             <h6>TASKS</h6>
                             <ul>
-                                <li className="text-success"><i className="fa-solid fa-thumbs-up me-1"></i> Completed</li>
+                                <li className="text-success" onClick={handleShowCompletedModal}><i className="fa-solid fa-thumbs-up me-1"></i> Completed</li>
                                 <li><i className="fa-solid fa-forward me-1"></i> Upcoming</li>
                                 <li><i className="fa-solid fa-bars me-1"></i> Today</li>
                                 <li><i className="fa-regular fa-calendar-days me-1"></i> Calendar</li>
@@ -82,14 +100,14 @@ const Home = () => {
                         <h3 className="text-center">TASKS</h3>
                         <ul className="mt-3 mb-5">
                             {todos.map(todo => (
-                                <li key={todo.id} onClick={() => handleShow(todo)} >
+                                <li key={todo.id} onClick={() => handleShowEditModal(todo)} >
                                     <i className="fa-solid fa-check me-2"></i>{todo.text}
                                 </li>
                             ))}
                         </ul>
 
                         {/* Modal for editing a task */}
-                        <Modal show={show} onHide={handleClose} size="lg">
+                        <Modal show={showEditModal} onHide={handleCloseEditModal} size="lg">
                             <Modal.Header closeButton>
                                 <Modal.Title>Make changes to your TO-DO</Modal.Title>
                             </Modal.Header>
@@ -101,8 +119,10 @@ const Home = () => {
                                         <div className="mb-3">
                                             <label htmlFor="fruits" className="form-label">Choose an action:</label>
                                             <select id="fruits" name="fruits" className="form-select">
-                                                <option value="apple">Move to later</option>
-                                                <option value="orange">Completed</option>
+                                                <option value="upcoming">Upcoming</option>
+                                                <option value="today">Today</option>
+                                                
+                                               
                                             </select>
                                         </div>
                                     </>
@@ -112,8 +132,30 @@ const Home = () => {
                                 <Button className="modal-button" variant="danger" onClick={() => removeTodo(selectedTodo.id)}>
                                     Remove
                                 </Button>
-                                <Button className="modal-button" variant="primary" onClick={handleClose}>
-                                    Save Changes
+                                <Button className="modal-button" variant="primary" onClick={handleMoveItem}>
+                                    Move to Completed
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
+
+                        {/* Modal for completed tasks */}
+                        <Modal show={showCompletedModal} onHide={handleCloseCompletedModal}>
+                           
+                            <Modal.Body>
+                                <h3 className="text-center">COMPLETED TASKS</h3>
+                                <ul>
+                                    {completedTodos.length > 0 ? (
+                                        completedTodos.map((item) => (
+                                            <li key={item.id}>{item.text}</li>
+                                        ))
+                                    ) : (
+                                        <h4 className="text-center mt-5">No completed tasks😒</h4>
+                                    )}
+                                </ul>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleCloseCompletedModal}>
+                                    Close
                                 </Button>
                             </Modal.Footer>
                         </Modal>
