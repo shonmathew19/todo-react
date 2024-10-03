@@ -1,61 +1,87 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import '../App.css';
 import { Col, Container, Row } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo, deleteTodo, completedTodo } from "../redux/todoSlice";
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css';
+
 
 const Home = () => {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showCompletedModal, setShowCompletedModal] = useState(false);
     const [selectedTodo, setSelectedTodo] = useState(null);
     const [task, setTask] = useState('');
+    const [editingTask, setEditingTask] = useState('');
+
     const todos = useSelector(state => state.todos.todos);
     const completedTodos = useSelector(state => state.todos.completedState);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
+        const savedCompletedTodos = JSON.parse(localStorage.getItem('completedTodos')) || [];
+        savedTodos.forEach(todo => dispatch(addTodo(todo.text)));
+        savedCompletedTodos.forEach(todo => dispatch(completedTodo(todo)));
+    }, [dispatch]);
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+        localStorage.setItem('completedTodos', JSON.stringify(completedTodos));
+    }, [todos, completedTodos]);
+
     const handleInput = (e) => {
         setTask(e.target.value);
-    }
+    };
+
+    const handleEditInput = (e) => {
+        setEditingTask(e.target.value);
+    };
 
     const handleTodo = () => {
         if (task.trim()) {
             dispatch(addTodo(task));
             setTask('');
         }
-    }
+    };
 
     const removeTodo = (id) => {
         dispatch(deleteTodo(id));
         setShowEditModal(false);
-    }
+    };
 
     const handleShowEditModal = (todo) => {
         setSelectedTodo(todo);
+        setEditingTask(todo.text);
         setShowEditModal(true);
-    }
+    };
 
     const handleCloseEditModal = () => {
         setShowEditModal(false);
         setSelectedTodo(null);
-    }
+    };
 
     const handleMoveItem = () => {
         if (selectedTodo) {
-            dispatch(completedTodo({ id: selectedTodo.id }));
+            dispatch(completedTodo({ id: selectedTodo.id, text: editingTask }));
             setShowEditModal(false);
             setSelectedTodo(null);
+            setEditingTask('');
         }
     };
 
     const handleShowCompletedModal = () => {
         setShowCompletedModal(true);
-    }
+    };
 
     const handleCloseCompletedModal = () => {
         setShowCompletedModal(false);
-    }
+    };
 
     return (
         <>
@@ -71,7 +97,7 @@ const Home = () => {
                                 <li className="text-success" onClick={handleShowCompletedModal}><i className="fa-solid fa-thumbs-up me-1"></i> Completed</li>
                                 <li><i className="fa-solid fa-forward me-1"></i> Upcoming</li>
                                 <li><i className="fa-solid fa-bars me-1"></i> Today</li>
-                                <li><i className="fa-regular fa-calendar-days me-1"></i> Calendar</li>
+                                <li onClick={handleShow}><i className="fa-regular fa-calendar-days me-1"></i> Calendar</li>
                                 <li><i className="fa-solid fa-note-sticky me-1"></i> Sticky Wall</li>
                             </ul>
                         </div>
@@ -99,14 +125,17 @@ const Home = () => {
 
                         <h3 className="text-center">TASKS</h3>
                         <ul className="mt-3 mb-5">
-                            {todos.map(todo => (
-                                <li key={todo.id} onClick={() => handleShowEditModal(todo)} >
-                                    <i className="fa-solid fa-check me-2"></i>{todo.text}
-                                </li>
-                            ))}
+                            {
+                                todos.length > 0 ?
+                                    todos.map(todo => (
+                                        <li key={todo.id} onClick={() => handleShowEditModal(todo)} >
+                                            <i className="fa-solid fa-check me-2"></i>{todo.text}
+                                        </li>
+                                    )) :
+                                    <h4 className="text-center mt-5">No pending tasks😒</h4>
+                            }
                         </ul>
 
-                        {/* Modal for editing a task */}
                         <Modal show={showEditModal} onHide={handleCloseEditModal} size="lg">
                             <Modal.Header closeButton>
                                 <Modal.Title>Make changes to your TO-DO</Modal.Title>
@@ -115,14 +144,20 @@ const Home = () => {
                                 {selectedTodo && (
                                     <>
                                         <label htmlFor="inputBox" className="form-label">TASK:</label>
-                                        <input type="text" id="inputBox" className="form-control" value={selectedTodo.text} onChange={handleInput} />
+                                        <input
+                                            type="text"
+                                            id="inputBox"
+                                            className="form-control"
+                                            value={editingTask}
+                                            onChange={handleEditInput}
+                                            readOnly
+                                        />
                                         <div className="mb-3">
                                             <label htmlFor="fruits" className="form-label">Choose an action:</label>
                                             <select id="fruits" name="fruits" className="form-select">
+                                                <option className="text-secondary" selected value="blank">select any to modify</option>
                                                 <option value="upcoming">Upcoming</option>
-                                                <option value="today">Today</option>
-                                                
-                                               
+                                                <option value="today">Later today</option>
                                             </select>
                                         </div>
                                     </>
@@ -138,9 +173,7 @@ const Home = () => {
                             </Modal.Footer>
                         </Modal>
 
-                        {/* Modal for completed tasks */}
                         <Modal show={showCompletedModal} onHide={handleCloseCompletedModal}>
-                           
                             <Modal.Body>
                                 <h3 className="text-center">COMPLETED TASKS</h3>
                                 <ul>
@@ -159,8 +192,25 @@ const Home = () => {
                                 </Button>
                             </Modal.Footer>
                         </Modal>
+                        <Modal show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Plan your days</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <div className="d-flex align-items-center justify-content-center mt-3" >
+                                    <Calendar />
+                                </div>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                    Close
+                                </Button>
+
+                            </Modal.Footer>
+                        </Modal>
                     </Col>
                 </Row>
+
             </Container>
         </>
     );
