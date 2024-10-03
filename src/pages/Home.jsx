@@ -99,7 +99,7 @@ const Home = () => {
                 <Row className="row">
                     <Col md={3} className="border shadow p-4 columnOne">
                         <h3>Menu</h3>
-                        <input type="text" className="form-control" placeholder="search" />
+                        <input type="text" className="form-control disabled" placeholder="search" />
                         <div className="mt-2">
                             <h6>TASKS</h6>
                             <ul>
