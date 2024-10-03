@@ -161,11 +161,11 @@ const Home = () => {
                                             readOnly
                                         />
                                         <div className="mb-3  ">
-                                            <label htmlFor="actions" className="form-label mt-2">Choose an action: (upcoming feature)</label>
+                                            <label htmlFor="actions" className="form-label mt-2">Choose an action: <span className="upcoming">(coming soon**)</span></label>
                                             <select id="actions" name="actions" className="form-select" >
                                                 <option className="text-secondary disabled" selected value="blank">select any to modify</option>
-                                                <option value="upcoming" className="disabled">Upcoming</option>
-                                                <option value="today" className="disabled">StickyWall</option>
+                                                <option value="upcoming" className="upcoming" >Important <span className="upcoming">(coming soon**)</span></option>
+                                                <option value="today" className="upcoming" >StickyWall (coming soon**)</option>
                                             </select>
                                         </div>
                                     </>
