@@ -87,3 +87,9 @@ li:hover{
     }
 }
 
+.disabled{
+    color: gray;
+    pointer-events: none;
+    opacity: 0.6;
+  
+}

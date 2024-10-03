@@ -5,9 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo, deleteTodo, completedTodo } from "../redux/todoSlice";
-import Calendar from 'react-calendar'
+import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-
 
 const Home = () => {
     const [show, setShow] = useState(false);
@@ -23,12 +22,21 @@ const Home = () => {
     const completedTodos = useSelector(state => state.todos.completedState);
     const dispatch = useDispatch();
 
+   
     useEffect(() => {
         const savedTodos = JSON.parse(localStorage.getItem('todos')) || [];
         const savedCompletedTodos = JSON.parse(localStorage.getItem('completedTodos')) || [];
-        savedTodos.forEach(todo => dispatch(addTodo(todo.text)));
-        savedCompletedTodos.forEach(todo => dispatch(completedTodo(todo)));
-    }, [dispatch]);
+
+ 
+        if (todos.length === 0) {
+            savedTodos.forEach(todo => dispatch(addTodo(todo.text)));
+        }
+
+        if (completedTodos.length === 0) {
+            savedCompletedTodos.forEach(todo => dispatch(completedTodo(todo)));
+        }
+    }, []);
+
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
@@ -59,6 +67,7 @@ const Home = () => {
         setSelectedTodo(todo);
         setEditingTask(todo.text);
         setShowEditModal(true);
+        setTask('');
     };
 
     const handleCloseEditModal = () => {
@@ -95,22 +104,21 @@ const Home = () => {
                             <h6>TASKS</h6>
                             <ul>
                                 <li className="text-success" onClick={handleShowCompletedModal}><i className="fa-solid fa-thumbs-up me-1"></i> Completed</li>
-                                <li><i className="fa-solid fa-forward me-1"></i> Upcoming</li>
-                                <li><i className="fa-solid fa-bars me-1"></i> Today</li>
                                 <li onClick={handleShow}><i className="fa-regular fa-calendar-days me-1"></i> Calendar</li>
-                                <li><i className="fa-solid fa-note-sticky me-1"></i> Sticky Wall</li>
+                                <li className="disabled"><i className="fa-solid fa-star me-1"></i> Important </li>
+                                <li className="disabled"><i className="fa-solid fa-note-sticky me-1"></i> Sticky Wall </li>
                             </ul>
                         </div>
                         <div>
-                            <h6>LISTS</h6>
-                            <ul>
+                            <h6 className="disabled">LISTS</h6>
+                            <ul className="disabled">
                                 <li>Personal</li>
                                 <li>Work</li>
                                 <li>List 1</li>
                                 <li>+ Add new list</li>
                             </ul>
                         </div>
-                        <div className="d-flex flex-column">
+                        <div className="d-flex flex-column disabled">
                             <span className="menu-button">Settings</span>
                             <span className="menu-button">Sign out</span>
                         </div>
@@ -152,12 +160,12 @@ const Home = () => {
                                             onChange={handleEditInput}
                                             readOnly
                                         />
-                                        <div className="mb-3">
-                                            <label htmlFor="fruits" className="form-label">Choose an action:</label>
-                                            <select id="fruits" name="fruits" className="form-select">
+                                        <div className="mb-3 ">
+                                            <label htmlFor="fruits" className="form-label">Choose an action: (upcoming feature)</label>
+                                            <select id="fruits" name="fruits" className="form-select" disabled>
                                                 <option className="text-secondary" selected value="blank">select any to modify</option>
                                                 <option value="upcoming">Upcoming</option>
-                                                <option value="today">Later today</option>
+                                                <option value="today">Important</option>
                                             </select>
                                         </div>
                                     </>
