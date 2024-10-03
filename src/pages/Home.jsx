@@ -164,8 +164,8 @@ const Home = () => {
                                             <label htmlFor="actions" className="form-label mt-2">Choose an action: <span className="upcoming">(coming soon**)</span></label>
                                             <select id="actions" name="actions" className="form-select" >
                                                 <option className="text-secondary disabled" selected value="blank">select any to modify</option>
-                                                <option value="upcoming" className="upcoming" >Important <span className="upcoming">(coming soon**)</span></option>
-                                                <option value="today" className="upcoming" >StickyWall (coming soon**)</option>
+                                                <option value="upcoming" className="upcoming" >Important * </option>
+                                                <option value="today" className="upcoming" >StickyWall *</option>
                                             </select>
                                         </div>
                                     </>

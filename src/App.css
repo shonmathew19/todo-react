@@ -2,14 +2,14 @@ body,html{
     overflow-x: hidden;
 }
 .bar{
-    height: 10px;
+    height: 20px;
     background: linear-gradient(45deg, 
     rgb(183, 224, 255) 0%, 
     rgb(255, 245, 205) 25%, 
     rgb(255, 207, 179) 50%, 
     rgb(231, 143, 129) 100%);
     background-size: 400% 400%;
-    animation: gradient-animation 3s ease infinite;
+    animation: gradient-animation 2s ease infinite;
 
 }
 @keyframes gradient-animation {
@@ -93,5 +93,5 @@ li:hover{
     opacity: 0.6;
   
 }.upcoming{
-    color: orange !important;
+    color: red !important;
 }
