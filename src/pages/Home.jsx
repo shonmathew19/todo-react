@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { addTodo, deleteTodo, completedTodo } from "../redux/todoSlice";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const Home = () => {
     const [show, setShow] = useState(false);
@@ -55,12 +57,14 @@ const Home = () => {
         if (task.trim()) {
             dispatch(addTodo(task));
             setTask('');
+            toast.success('Task added successfully')
         }
     };
 
     const removeTodo = (id) => {
         dispatch(deleteTodo(id));
         setShowEditModal(false);
+        toast.warning('Task deleted successfully')
     };
 
     const handleShowEditModal = (todo) => {
@@ -81,6 +85,7 @@ const Home = () => {
             setShowEditModal(false);
             setSelectedTodo(null);
             setEditingTask('');
+            toast.success('Task moved to "completed tasks"')
         }
     };
 
@@ -220,6 +225,9 @@ const Home = () => {
                 </Row>
 
             </Container>
+            
+            <ToastContainer position="top-center" />
+
         </>
     );
 };
