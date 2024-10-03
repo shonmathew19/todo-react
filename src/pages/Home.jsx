@@ -160,12 +160,12 @@ const Home = () => {
                                             onChange={handleEditInput}
                                             readOnly
                                         />
-                                        <div className="mb-3 ">
-                                            <label htmlFor="fruits" className="form-label">Choose an action: (upcoming feature)</label>
-                                            <select id="fruits" name="fruits" className="form-select" disabled>
-                                                <option className="text-secondary" selected value="blank">select any to modify</option>
-                                                <option value="upcoming">Upcoming</option>
-                                                <option value="today">Important</option>
+                                        <div className="mb-3  ">
+                                            <label htmlFor="actions" className="form-label mt-2">Choose an action: (upcoming feature)</label>
+                                            <select id="actions" name="actions" className="form-select" >
+                                                <option className="text-secondary disabled" selected value="blank">select any to modify</option>
+                                                <option value="upcoming" className="disabled">Upcoming</option>
+                                                <option value="today" className="disabled">StickyWall</option>
                                             </select>
                                         </div>
                                     </>
