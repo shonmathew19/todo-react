@@ -5,13 +5,12 @@ const todoSlice = createSlice({
     initialState: {
         todos: [],
         completedState: [],
-        upcomingState:[],
         importantState:[]
 
     },
     reducers: {
         addTodo: (state, action) => {
-            state.todos.push({ id: Date.now(), text: action.payload, completed: false });
+            state.todos.push({ id: Date.now(), text: action.payload});
         },
         deleteTodo: (state, action) => {
             const itemToDelete = action.payload;
@@ -20,21 +19,27 @@ const todoSlice = createSlice({
         completedTodo: (state, action) => {
             const todoToComplete = state.todos.find(todo => todo.id === action.payload.id);
             if (todoToComplete) {
-                // Remove from todos and add to completedState
+                
                 state.todos = state.todos.filter(todo => todo.id !== action.payload.id);
                 state.completedState.push(todoToComplete);
             } 
         },
-    //     upcomingTodo: (state, action) => {
-    //         const todoUpcoming = state.todos.find(todo => todo.id === action.payload.id);
-    //         if (todoUpcoming) {
-    //             // Remove from todos and add to completedState
-    //             state.todos = state.todos.filter(todo => todo.id !== action.payload.id);
-    //             state.upcomingState.push(todoUpcoming);
-    //         } 
-    // }
+        markAsImportant: (state, action) => { 
+            const todoToImportant = state.todos.find(todo => todo.id === action.payload.id);
+            if (todoToImportant) {
+                state.todos = state.todos.filter(todo => todo.id !== action.payload.id);
+                state.importantState.push(todoToImportant);
+            }
+        },
+        updateTodo: (state, action) => {
+            const { id, text } = action.payload;
+            const todoToUpdate = state.todos.find(todo => todo.id === id);
+            if (todoToUpdate) {
+                todoToUpdate.text = text; 
+            }
+        }
     }
 })
 
-export const { addTodo, deleteTodo, completedTodo,todoUpcoming } = todoSlice.actions;
+export const { addTodo, deleteTodo, completedTodo,todoUpcoming,markAsImportant,updateTodo  } = todoSlice.actions;
 export default todoSlice.reducer;
