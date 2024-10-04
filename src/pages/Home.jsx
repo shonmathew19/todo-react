@@ -167,11 +167,19 @@ const Home = () => {
                                 todos.length > 0 ?
                                     todos.map(todo => (
                                         <>
-                                                    <li key={todo.id} onClick={() => handleShowEditModal(todo)} >
-                                                        <i className="fa-solid fa-check me-2 text-success"></i>{todo.text}
-                                                        <span className="text-secondary shadow ms-5 " style={{ float: 'right' }} ><span className="me-2 text-primary">Time:</span>{formattedDate}</span>
-                                                    </li>
-  
+                                            <li key={todo.id} className="d-flex justify-content-between align-items-center" onClick={() => handleShowEditModal(todo)}>
+                                                <div>
+                                                    <i className="fa-solid fa-check me-2 text-success"></i>{todo.text}
+                                                </div>
+                                                <div className="text-secondary shadow">
+                                                    <span className="text-primary me-2">Time:</span>{formattedDate}
+                                                </div>
+
+                                            </li>
+                                            <hr />
+
+
+
                                         </>
 
                                     )) :
@@ -227,10 +235,14 @@ const Home = () => {
                                 <ul>
                                     {completedTodos.length > 0 ? (
                                         completedTodos.map((item) => (
-                                            <li key={item.id}>{item.text}
-                                                <span className="text-secondary shadow ms-5 " style={{ float: 'right' }} ><span className="me-2 text-primary">Time:</span>{formattedDate}</span>
+                                            <li key={item.id} className="d-flex justify-content-between align-items-center">
+                                                <div>{item.text}</div>
+                                                <div className="text-secondary shadow">
+                                                    <span className="text-primary me-2">Time:</span>{formattedDate}
+                                                </div>
                                                 <hr />
                                             </li>
+
                                         ))
                                     ) : (
                                         <h4 className="text-center mt-5">No completed tasks😒</h4>
@@ -251,11 +263,16 @@ const Home = () => {
                                 <ul>
                                     {importantTodos.length > 0 ? (
                                         importantTodos.map((item) => (
-                                            <li key={item.id}>{item.text}
-
-                                                <span className="text-secondary shadow " style={{ float: 'right' }} ><span className="me-2 text-primary">Time:</span>{formattedDate}</span>
+                                            <>
+                                                <li key={item.id} className="d-flex justify-content-between align-items-center">
+                                                    <div>{item.text}</div>
+                                                    <div className="text-secondary shadow">
+                                                        <span className="text-primary me-2">Time:</span>{formattedDate}
+                                                    </div>
+                                                </li>
                                                 <hr />
-                                            </li>
+
+                                            </>
                                         ))
                                     ) : (
                                         <h4 className="text-center mt-5">No Important tasks😒</h4>
