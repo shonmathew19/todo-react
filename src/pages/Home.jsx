@@ -171,8 +171,8 @@ const Home = () => {
                                                 <div>
                                                     <i className="fa-solid fa-check me-2 text-success"></i>{todo.text}
                                                 </div>
-                                                <div className="text-secondary shadow">
-                                                    <span className="text-primary me-2">Time:</span>{formattedDate}
+                                                <div className="text-secondary shadow  ">
+                                                    <span className="text-primary  me-2">Time:</span>{formattedDate}
                                                 </div>
 
                                             </li>
