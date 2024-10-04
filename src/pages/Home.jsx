@@ -235,13 +235,16 @@ const Home = () => {
                                 <ul>
                                     {completedTodos.length > 0 ? (
                                         completedTodos.map((item) => (
+                                            <>
                                             <li key={item.id} className="d-flex justify-content-between align-items-center">
                                                 <div>{item.text}</div>
                                                 <div className="text-secondary shadow">
                                                     <span className="text-primary me-2">Time:</span>{formattedDate}
                                                 </div>
-                                                <hr />
+                                                
                                             </li>
+                                            <hr/>
+                                            </>
 
                                         ))
                                     ) : (
