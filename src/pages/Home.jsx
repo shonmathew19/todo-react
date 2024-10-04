@@ -4,7 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useSelector, useDispatch } from "react-redux";
-import { addTodo, deleteTodo, completedTodo, markAsImportant,updateTodo  } from "../redux/todoSlice";
+import { addTodo, deleteTodo, completedTodo, markAsImportant, updateTodo } from "../redux/todoSlice";
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -133,7 +133,7 @@ const Home = () => {
                             <h6>TASKS</h6>
                             <ul>
                                 <li className="text-success" onClick={handleShowCompletedModal}><i className="fa-solid fa-thumbs-up me-1"></i> Completed</li>
-                                <li onClick={handleShowImportantModal}> <i className="fa-solid fa-star me-1" style={{color:'gold'}}></i> Important </li>
+                                <li onClick={handleShowImportantModal}> <i className="fa-solid fa-star me-1" style={{ color: 'gold' }}></i> Important </li>
                                 <li onClick={handleShow}><i className="fa-regular fa-calendar-days fa-fade me-1"></i> Calendar</li>
                                 <li className="disabled"><i className="fa-solid fa-note-sticky me-1"></i> Sticky Wall </li>
                             </ul>
@@ -163,13 +163,17 @@ const Home = () => {
                         <h3 className="text-center">TASKS</h3>
                         <ul className="mt-3 mb-5">
                             {
-                                
+
                                 todos.length > 0 ?
                                     todos.map(todo => (
-                                        <li key={todo.id} onClick={() => handleShowEditModal(todo)} >
-                                            <i className="fa-solid fa-check me-2 text-success"></i>{todo.text} 
-                                            <span className="text-secondary "style={{float:'right'}} ><span className="me-2 text-primary">Time:</span>{formattedDate}</span>
-                                        </li>
+                                        <>
+                                                    <li key={todo.id} onClick={() => handleShowEditModal(todo)} >
+                                                        <i className="fa-solid fa-check me-2 text-success"></i>{todo.text}
+                                                        <span className="text-secondary shadow ms-5 " style={{ float: 'right' }} ><span className="me-2 text-primary">Time:</span>{formattedDate}</span>
+                                                    </li>
+  
+                                        </>
+
                                     )) :
                                     <h4 className="text-center mt-5">No pending tasks😊</h4>
                             }
@@ -182,14 +186,14 @@ const Home = () => {
                             <Modal.Body className="p-4">
                                 {selectedTodo && (
                                     <>
-                                        <label htmlFor="inputBox" className="form-label">TASK: <span style={{color:'red'}}>(click on task name to edit)</span></label>
+                                        <label htmlFor="inputBox" className="form-label">TASK: <span style={{ color: 'red' }}>(click on task name to edit)</span></label>
                                         <input
                                             type="text"
                                             id="inputBox"
                                             className="form-control"
                                             value={editingTask}
                                             onChange={handleEditInput}
-                                            
+
 
                                         />
                                         <div className="mb-3  ">
@@ -210,7 +214,7 @@ const Home = () => {
                                 <Button className="modal-button" variant="danger" onClick={() => removeTodo(selectedTodo.id)}>
                                     Remove
                                 </Button>
-                                <Button  className="modal-button"variant="primary" onClick={handleMoveItem}>SAVE</Button>
+                                <Button className="modal-button" variant="primary" onClick={handleMoveItem}>SAVE</Button>
 
                             </Modal.Footer>
                         </Modal>
@@ -224,7 +228,8 @@ const Home = () => {
                                     {completedTodos.length > 0 ? (
                                         completedTodos.map((item) => (
                                             <li key={item.id}>{item.text}
-                                            <span className="text-secondary "style={{float:'right'}} ><span className="me-2 text-primary">Time:</span>{formattedDate}</span>
+                                                <span className="text-secondary shadow ms-5 " style={{ float: 'right' }} ><span className="me-2 text-primary">Time:</span>{formattedDate}</span>
+                                                <hr />
                                             </li>
                                         ))
                                     ) : (
@@ -247,7 +252,9 @@ const Home = () => {
                                     {importantTodos.length > 0 ? (
                                         importantTodos.map((item) => (
                                             <li key={item.id}>{item.text}
-                                            <span className="text-secondary "style={{float:'right'}} ><span className="me-2 text-primary">Time:</span>{formattedDate}</span>
+
+                                                <span className="text-secondary shadow " style={{ float: 'right' }} ><span className="me-2 text-primary">Time:</span>{formattedDate}</span>
+                                                <hr />
                                             </li>
                                         ))
                                     ) : (
