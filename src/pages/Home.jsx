@@ -142,8 +142,6 @@ const Home = () => {
                             <h6 className="disabled">LISTS</h6>
                             <ul className="disabled">
                                 <li>Personal</li>
-                                <li>Work</li>
-                                <li>List 1</li>
                                 <li>+ Add new list</li>
                             </ul>
                         </div>
